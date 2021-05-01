@@ -51,8 +51,8 @@ Three pieces of software/sytem are required for the code to work:
 Depending on a signaling server configuration, RTCProctor code may be installed and run on student/proctor machines, without the need for a web server. Otherwise, it can be hosted on any static web server.
 
 A signaling server is used to publish and initialize video stream connection. A nodejs version of the server software are available from https://github.com/muaz-khan/RTCMultiConnection-Server. List of some public signaling servers for testing include:
-* https://rtcmulticonnection.herokuapp.com:443/  (note: may no longer avaiable for public use)
-* https://webrtcweb.com:9002/ (note: may no longer avaiable for public use)
+* https://rtcmulticonnection.herokuapp.com:443/  (note: may no longer available for public use)
+* https://webrtcweb.com:9002/ (note: may no longer available for public use)
 * https://rtcsignalserver.herokuapp.com/ (note: this server runs under the Heroku free plan. Therefore, performance and availability is limited. When usage exceeds the quota, the server will not be available.)
 
 It is however recommended that you should run your own signaling server, to get reliable service as well as good security.
