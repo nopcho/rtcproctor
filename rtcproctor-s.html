@@ -96,7 +96,7 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
 <script>
         
 // .......................UI Code........................    
-    document.getElementById('open-room').onclick = function() {
+document.getElementById('open-room').onclick = function() {
         var stream_code = document.getElementById('stream-code').value;
         if (stream_code == "") {
             alert("Enter your stream code first");
@@ -120,11 +120,16 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
                     setTimeout( function() {document.getElementById('reset').click();}, 2000);
                 } else {
                     conn_status = "online";
+                    document.getElementById('main-header').style.backgroundColor = "green";
+                    document.getElementById('videos-container').style.display = "inline";
+                    document.getElementById("message-container").style.display = "inline";
+                    console.log("connection = " + connection.isOnline);
                 }
           });
         }
     };
 
+    document.getElementById('reset').onclick = function() {
         document.getElementById("message-container").style.display = "none";
         document.getElementById('main-header').innerHTML = "Resetting connection...";
         document.getElementById('main-header').style.backgroundColor = "darkorange";
@@ -182,7 +187,7 @@ var connection = new RTCMultiConnection();
 // Setup some default configurations
 
 //connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/'; //default public signaling server (may no longer functional)
-connection.socketURL = 'https://rtcsignalserver.heroku.com/';
+connection.socketURL = 'https://rtcsignalserver.herokuapp.com/';
 
 connection.socketMessageEvent = 'rtc-video-proctoring';
 
