@@ -385,34 +385,29 @@ if(navigator.connection &&
 <!-- Configuration parameters can be customized here -->
 <script>    
 //    If a public signaling server does not work, or strong security is needed, you need to use your own signaling server.
-    connection.socketURL = 'https://rtcproctor.it.kmitl.ac.th:9001/';
-//    connection.socketURL = 'https://rtcsignalserver.herokuapp.com/';
-    
+//    connection.socketURL = 'https://yoursocketioserver.com/';  
+
 //    videoConstraints = {
 //        width: 160,
 //        height: 120,
 //        frameRate: 5
-//    };
-
-   connection.iceServers = [];
-
-   connection.iceServers.push({
-       urls: 'stun:stun.l.google.com:19302',
-   });    
-
-   connection.iceServers.push({
-       urls: 'stun:stun.l.google.com:19302?transport=udp',
-   });            
+//    };   
     
-    connection.iceServers.push({
-       urls: 'turn:rtcproctor.it.kmitl.ac.th:3478',
-       credential: '507110520',
-       username: 'rtcproctor'
-   });      
     
-    //Auto-join (supposed to be the last thing to do)
-    if(location.href.indexOf("#") > -1) {
-        document.getElementById("join-room").click(); 
-    };
+//    connection.iceServers = [];
+//
+//    connection.iceServers.push({
+//        urls: 'stun:stun.l.google.com:19302',
+//    });    
+//
+//    connection.iceServers.push({
+//        urls: 'stun:stun.l.google.com:19302?transport=udp',
+//    });            
+//    
+//    connection.iceServers.push({
+//        urls: 'turn:yourturnserver.com:3478',
+//        credential: 'yourpasscode',
+//        username: 'yourusername'
+//    });
     
 </script>

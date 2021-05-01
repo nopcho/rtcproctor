@@ -398,37 +398,36 @@ connection.onExtraDataUpdated = function(event) {
 
 <!-- Configuration parameters can be customized here -->
 <script>
-   numblk_eachrow = 6;
-   numrow = 3;
-   numblk = numblk_eachrow * numrow;
+//    numblk_eachrow = 6;
+//    numrow = 3;
+//    numblk = numblk_eachrow * numrow;
 //    
 //    If a public signaling server does not work, or strong security is needed, you need to use your own signaling server.
-   connection.socketURL = 'https://rtcproctor.it.kmitl.ac.th:9001/';
- //    connection.socketURL = 'https://rtcsignalserver.herokuapp.com/';
-   
+//    connection.socketURL = 'https://yoursocketioserver.com/';
+    
 //    videoConstraints = {
 //        width: 160,
 //        height: 120,
 //        frameRate: 5
 //    };
     
-   connection.iceServers = [];
-
-   connection.iceServers.push({
-       urls: 'stun:stun.l.google.com:19302',
-   });    
-
-   connection.iceServers.push({
-       urls: 'stun:stun.l.google.com:19302?transport=udp',
-   });            
-   
-   connection.iceServers.push({
-       urls: 'turn:rtcproctor.it.kmitl.ac.th:3478',
-       credential: '507110520',
-       username: 'rtcproctor'
-   });    
+//    connection.iceServers = [];
+//
+//    connection.iceServers.push({
+//        urls: 'stun:stun.l.google.com:19302',
+//    });    
+//
+//    connection.iceServers.push({
+//        urls: 'stun:stun.l.google.com:19302?transport=udp',
+//    });            
+//    
+//    connection.iceServers.push({
+//        urls: 'turn:yourturnserver.com:3478',
+//        credential: 'yourpasscode',
+//        username: 'yourusername'
+//    });    
     
-    externalURL = "rtcproctor-mc.html"; //monitor+chat page
+//    externalURL = "rtcproctor-mc.html"; //monitor+chat page
     
 //    var  thelist = document.getElementById("theList");
 //    var txt = "00000001	room1\n00000002	room2\n00000003	room3\n00000004	room4\n00000005	room5\n00000006	room6\n00000007	room7\n00000008	room8\n00000009	room9\n00000010	room10";    
