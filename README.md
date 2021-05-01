@@ -4,13 +4,15 @@
 
 This is a program written for video proctoring of examinations conducted off-school/off-campus, or exam from home. The main idea is to use each student's mobile phone as a video camera, and a web-based peer-to-peer streaming code to send live picture to a proctor computer. A proctor can monitor multiple videos streamed from students in one page. More than one proctor can monitor any of the students' video streams at the same time. Video delivery is based on the WebRTC real-time communication standard. The code was written based on RTCMulticonnection library (see: https://github.com/muaz-khan/RTCMultiConnection and ref. at the end of this document).
 
+Although on the student side the software can be used with a notebook computer, a mobie phone is a prefered device because its front-facing camera has a wider and more flexible viewpoint.
+
 ### Features
 
 *  No video server is required (however, a signaling server as well as ICE server are still needed to establish a connection. See installation guide below on how to get them.)  
 *  Video (picture & sound) is streamed one-way from each student to his/her proctor(s). Students cannot see videos from others.
 *  Installation-free on a client side. Only a web browser supporting WebRTC is needed on both students and proctors machines.
 *  Proctor can choose to chat (send/receive text) with each student.
-*  Student/proctor can send attention request messsage (and play an alert sound) the other end of the connection.
+*  Student/proctor can send attention request messsage (and play an alert sound) to the other end of the connection.
 *  List of off-air users (those with no video stream detected).
 *  Camera selection for a device with more than one video cameras.
 *  Auto offline detection and reconnection for Student Page.
@@ -20,12 +22,12 @@ This is a program written for video proctoring of examinations conducted off-sch
 1. Stream codes are exchanged between a proctor and his/her students before the exam. How the codes can be exchanged are explained in the next section.
 2. Each student use a browser to open a 'RTCProctor - Student Page', and fill in his/her stream code. Then, press 'Go Live'. This should create a video stream available to anyone who know the code.
 3. A proctor open a 'RTCProctor - Monitor Page'. Add a list of student-streamcode pairs to a textbox shown on the first page. Press 'Next' to start receiving video streams from students.
-4. Any time during the live connection, a student or proctor can request attention by clcking on the 'hand-shake' icon on the top-right corner of the chat message box. Both side and exchange text message with each other.
+4. Any time during the live connection, a student or proctor can request attention by clcking on the 'hand-waving' icon on the top-right corner of the chat message box. Both side and exchange text message with each other.
 5. For a proctor to view individual video, as well as start a chat with each student, click on a student name/id below the video box.
 
 Note that, because a student acts like a broadcaster and a proctor acts like a receiver, there can be more than one proctors viewing student streams at the same time. Also, whatever happens to a proctor machine does not interrupt video streaming. Also, importantly, due to a variety of mobile phone devices in use these days, some of students' device may not yet support WebRTC. If so, RTCProctor may not function properly on these devices.
 
-A live demo is available at https://rtcproctor.herokuapp.com  (However, this site runs on a Heroku free plan, with limited quota on usage transaction. Therefore, availablity can be limited and not guaranteed). 
+A live demo is available at https://rtcproctor.herokuapp.com  (However, this site runs on a Heroku free plan, with limited quota on usage transaction. Therefore, availability can be limited and not guaranteed). 
 *  A student page: https://rtcproctor.herokuapp.com/rtcproctor-s.html
 *  A proctor (monitor) page: https://rtcproctor.herokuapp.com/rtcproctor-m.html
 
