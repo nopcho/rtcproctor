@@ -48,6 +48,14 @@
             console.log("vdoConstraints: " + videoConstraints);
         }
 
+        function resetUI() {
+            document.getElementById('main-header').innerHTML  = "RTCProctor - Monitor+Chat Page";
+            document.getElementById('main-header').style.backgroundColor = "dimgray";                
+            document.getElementById('open-room').disabled = false;
+            document.getElementById('join-room').disabled = false;
+            document.getElementById('stream-code').disabled = false;
+            document.getElementById('selectcam').disabled = false;
+        }
     </script>
 
 </head>
@@ -104,6 +112,7 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
                     }
                     document.getElementById('main-header').style.backgroundColor = "red";
                     document.getElementById('main-header').innerHTML = errmsg;
+                    document.getElementById("message-container").style.display = "none";   
                     let clist  = document.getElementById('videos-container');
                     clist.removeChild(clist.childNodes[0]);
                     setTimeout( function() {document.getElementById('reset').click();}, 2000);
@@ -138,14 +147,13 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
                 document.getElementById('main-header').style.backgroundColor = "red";
                 document.getElementById('main-header').innerHTML = errmsg;
 
-                setTimeout( function() {document.getElementById('reset').click();}, 2000);
+//                setTimeout( function() {document.getElementById('reset').click();}, 2000);
+                setTimeout( function() { resetUI();}, 2000);
                 
             } else {
                 var mainhead = document.getElementById('main-header');
                 mainhead.style.backgroundColor = "green";
                 mainhead.innerHTML = "RTCProctor - Monitor+Chat Page <span style='color:orange;'>(monitoring)</span>";
-                document.getElementById("message-container").style.display = "inline";
-
             }
 
         });
@@ -153,7 +161,7 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
 
 
     document.getElementById('reset').onclick = function() {
-        //beep();
+        document.getElementById("message-container").style.display = "none";   
         document.getElementById('main-header').innerHTML = "Resetting connection...";
         document.getElementById('main-header').style.backgroundColor = "darkorange";
         connection.closeSocket();
@@ -176,12 +184,12 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
                 msg = "<a href='" + msg + "' target='_blank'>" + msg + "</a>";
             }
             
-            chatbox.innerHTML  = chatbox.innerHTML + "<br>" + "<span class='local-txt'>[me]:" + msg + "</span>";
+            chatbox.innerHTML  = chatbox.innerHTML + "<br><span class='local-txt'>[me]:" + msg + "</span><br>";
             chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
             connection.extra.message = msg; 
             connection.extra.attention = ""; 
             connection.updateExtraData();
-            document.getElementById('msg-to-remote').value = "";            
+            document.getElementById('msg-to-remote').value = "";
         }
     }
     
@@ -199,7 +207,7 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
         let ss = ("0" + d.getSeconds()).slice(-2);
         let msg = "<span style='color:red;'>Attn Request: " + hh + ":" + mm + ":" + ss + "</span>";
         var chatbox = document.getElementById('chatmsg-box');
-        chatbox.innerHTML  = chatbox.innerHTML + "<br>" + "<span class='local-txt'>[me]:" + msg + "</span>";
+        chatbox.innerHTML  = chatbox.innerHTML + "<span class='local-txt'>[me]:" + msg + "</span><br>";
         chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
         connection.extra.attention = msg; 
         connection.extra.message = ""; 
@@ -212,7 +220,8 @@ var connection = new RTCMultiConnection();
 
 // Setup some default configurations
 
-connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+//connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+connection.socketURL = 'https://rtcsignalserver.heroku.com/';
 
 connection.socketMessageEvent = 'rtc-video-proctoring';
 
@@ -299,7 +308,8 @@ connection.onstream = function(event) {
     connection.videosContainer.appendChild(mediaElement);
 
     mediaElement.id = event.streamid;
-    
+    document.getElementById("message-container").style.display = "inline";
+
 };
 
 connection.onstreamended = function(event) {
@@ -312,8 +322,9 @@ connection.onstreamended = function(event) {
             let msg = "Streaming ended";
                 document.getElementById('main-header').style.backgroundColor = "darkorange";
                 document.getElementById('main-header').innerHTML = msg;  
+                document.getElementById("message-container").style.display = "none";   
                 setTimeout( function() {
-                    document.getElementById('reset').click();
+                    resetUI();
                 }, 2000);
         }
     }
@@ -373,14 +384,15 @@ if(navigator.connection &&
 <!-- Configuration parameters can be customized here -->
 <script>    
 //    If a public signaling server does not work, or strong security is needed, you need to use your own signaling server.
-//    connection.socketURL = 'https://yoursocketioserver.com/';
-    
+//    connection.socketURL = 'https://yoursocketioserver.com/';  
+
 //    videoConstraints = {
 //        width: 160,
 //        height: 120,
 //        frameRate: 5
-//    };
-
+//    };   
+    
+    
 //    connection.iceServers = [];
 //
 //    connection.iceServers.push({

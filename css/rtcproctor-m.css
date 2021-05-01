@@ -119,6 +119,11 @@ vdoelm {
     display:none;
 }
 
+.sepline {
+    padding: 0px 5px;
+    color: darkgray
+}
+
 
        
 

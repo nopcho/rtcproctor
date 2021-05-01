@@ -38,6 +38,8 @@
             var offair = offAirList();
             var offlist = "List of off-air streams (Total connections made: " + offair[0] + ", Total off-air streams: " + offair[1] + ")\n";
             offlist = offlist + offair[2];
+            var line = "==============  student-id only  =============\n"
+            var offlist = offlist + offair[2] + line + offair[3];
             var w = window.open("");
             w.document.write("<html><head><title>Offair List</title><style>body {font-family: sans-serif};</style></head><body><pre>" + offlist + "</pre></body></html>");
         }
@@ -55,9 +57,11 @@
             var numcon = 0;
             var numoff = 0;
             var offlist_ = "";
-            for (let i = 0; i < data.length; i++) {   
+            var offlist_2 = "";
+            for (let i = 0; i < data.length; i++) {
                 if (stream_status[i] == 0) {
                     offlist_ = offlist_ + data[i][0] + "\t" + data[i][1] + "\n";
+                    offlist_2 = offlist_2 + data[i][0] + "\n";
                     numoff++;
                     numcon++;
                 }
@@ -65,7 +69,7 @@
                     numcon++;
                 }
             }
-            return [numcon, numoff, offlist_];
+            return [numcon, numoff, offlist_, offlist_2];
         }
         
         //reset vdo page and return to a home/first page.
@@ -132,7 +136,9 @@
 <body onload="init();">  
     
 <h1 id="main-header">RTCProctor - Monitor Page</h1>
-<div class="menu"><span class="menu-item" onclick="resetHome();">Home</span> | <span class="menu-item" onclick="showOffAir();">Off-Air List</span> | <span class="menu-item" onclick="saveOffAirToFile();">Download Off-Air List</span> | <span class="menu-item" id="audio_control" onclick="toggleAudio();">Turn Audio On</span></div> 
+<div class="menu">
+    <span class="menu-item" onclick="resetHome();">Home</span><span class="sepline">|</span><span class="menu-item" onclick="showOffAir();">Off-Air List</span><span class="sepline">|</span><span class="menu-item" onclick="saveOffAirToFile();">Download Off-Air List</span><span class="sepline">|</span><span class="menu-item" id="audio_control" onclick="toggleAudio();">Turn Audio On</span><span class="sepline">|</span><span class="menu-item" id="about_rtcproctor" onclick="window.open('https://github.com/nopcho/rtcproctor/blob/main/README.md', '_self');">About RTCProctor</span>
+</div> 
     
 <section id="add_section" class="padding-l-vtc">
     <anchor id="add"></anchor>
@@ -169,7 +175,8 @@ var connection = new RTCMultiConnection();
 
 // Setup some default configurations
     
-connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+//connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+connection.socketURL = 'https://rtcsignalserver.heroku.com/';
 
 connection.socketMessageEvent = 'rtc-video-proctoring';
 

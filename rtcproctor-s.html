@@ -25,6 +25,7 @@
         var videoConstraints;
         var number_users = 0;
         var oldmessage = "";
+        var conn_status = "";
         
         function setVdoConstraint() {
             connection.mediaConstraints = {
@@ -50,7 +51,13 @@
             var beep = new Audio('media/beep.mp3');
             beep.play(); 
         }    
-
+        function resetUI() {
+            document.getElementById('main-header').innerHTML  = "RTCProctor - Student Page";
+            document.getElementById('main-header').style.backgroundColor = "dimgray";                
+            document.getElementById('open-room').disabled = false;
+            document.getElementById('stream-code').disabled = false;
+            document.getElementById('selectcam').disabled = false;
+        }
     </script>
 
 </head>
@@ -93,6 +100,7 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
         var stream_code = document.getElementById('stream-code').value;
         if (stream_code == "") {
             alert("Enter your stream code first");
+            conn_status = "";
         } else {
             disableInputButtons();
             setCamera();
@@ -102,27 +110,26 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
                     if (error) {
                         errmsg = error;                            
                     } else {
-                        errmsg = "Streaming room could not be opened.";
-                        
+                        errmsg = "Streaming room could not be opened.";                       
                     }
+                    conn_status = "";
                     document.getElementById('main-header').style.backgroundColor = "red";
                     document.getElementById('main-header').innerHTML = errmsg;
                     let clist  = document.getElementById('videos-container');
                     clist.removeChild(clist.childNodes[0]);
                     setTimeout( function() {document.getElementById('reset').click();}, 2000);
                 } else {
-                    document.getElementById('main-header').style.backgroundColor = "green";
-                    document.getElementById("message-container").style.display = "inline";
-
+                    conn_status = "online";
                 }
           });
         }
     };
 
-    document.getElementById('reset').onclick = function() {
+        document.getElementById("message-container").style.display = "none";
         document.getElementById('main-header').innerHTML = "Resetting connection...";
         document.getElementById('main-header').style.backgroundColor = "darkorange";
         connection.closeSocket();
+        conn_status = "";
         var clist  = document.getElementById('videos-container');
         if (clist.childNodes[0]) {
             clist.removeChild(clist.childNodes[0]);
@@ -138,7 +145,7 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
                 msg = "<a href='" + msg + "' target='_blank'>" + msg + "</a>";
             }
             
-            chatbox.innerHTML  = chatbox.innerHTML + "<br>" + "<span class='local-txt'>[me]:" + msg + "</span>";
+            chatbox.innerHTML  = chatbox.innerHTML + "<br><span class='local-txt'>[me]:" + msg + "</span><br>";
             chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
             connection.extra.message = msg; 
             connection.extra.attention = ""; 
@@ -161,7 +168,7 @@ This part was based on RTCMulticonnection one-way video conf. demo -->
         let ss = ("0" + d.getSeconds()).slice(-2);
         let msg = "<span style='color:red;'>Attn Request: " + hh + ":" + mm + ":" + ss + "</span>";
         var chatbox = document.getElementById('chatmsg-box');
-        chatbox.innerHTML  = chatbox.innerHTML + "<br>" + "<span class='local-txt'>[me]:" + msg + "</span>";
+        chatbox.innerHTML  = chatbox.innerHTML + "<span class='local-txt'>[me]:" + msg + "</span><br>";
         chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
         connection.extra.attention = msg; 
         connection.extra.message = ""; 
@@ -174,7 +181,8 @@ var connection = new RTCMultiConnection();
 
 // Setup some default configurations
 
-connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/'; //default public signaling server (may no longer functional)
+//connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/'; //default public signaling server (may no longer functional)
+connection.socketURL = 'https://rtcsignalserver.heroku.com/';
 
 connection.socketMessageEvent = 'rtc-video-proctoring';
 
@@ -317,8 +325,29 @@ connection.onExtraDataUpdated = function(event) {
 };       
     
 
+setInterval(function(){ 
+    if (conn_status) {
+        if(!connection.isOnline) {
+            console.log("connection is offline");
+            document.getElementById('videos-container').style.display = "none";
+            document.getElementById("message-container").style.display = "none";
+            beep();
+            resetUI();
+            conn_status = "offline";
+        }
+        else {
+            console.log("connection is online");
+            if (conn_status == "offline") {
+                conn_status = "";
+                document.getElementById('open-room').click();
+            }
+        }
+    }
+}, 30000);
+
+
 if(location.href.indexOf("#") > -1) {
- document.getElementById('stream-code').value = location.href.split('#')[1];
+    document.getElementById('stream-code').value = location.href.split('#')[1];
 };
     
 // detect 2G
