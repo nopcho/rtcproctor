@@ -37,7 +37,7 @@ One of the most important tasks to do in arranging this online proctoring method
 For Choice #1, here is a link to early, experimental version of a companion Moodle plugin to be used with RTCProctor [link to be avaiable soon]. For Choice #2, follow instruction below.
 
 #### Exchange stream codes by Google sheet + Gmail
-1. Create a Google sheet to generate to codes and prepare a message to send to each student. An example of a spreadsheet, which auto generates a randome stream code, and prepare a link + code for each student, is given here [to be provided] (in excel format. You need to upload this to Google Drive, and convert to Google Sheet before proceeding to the next step).
+1. Create a Google sheet to generate to codes and prepare a message to send to each student. An example of a spreadsheet, which auto generates a randome stream code, and prepare a link + code for each student, is given here https://github.com/nopcho/rtcproctor/blob/main/rtcproctor-codeexchange.xlsx (in excel format. You need to upload this to Google Drive, and convert to Google Sheet before proceeding to the next step).
 2. Write code to send email from Google sheet. Please follow this link for instruction: https://developers.google.com/apps-script/articles/sending_emails?hl=th&authuser=0
 3. Run the script from Google sheet. The link or code (depending on how you prepare the message), will be sent to each student mail box. From there, a student can use information provided to stream his/her video with 'RTCProctor Student Page'.
 4. A proctor can copy the list of student-code pairs from the sheet, and paste into the first page of 'RTCProctor - Monitor Page', and start monitoring student videos.
