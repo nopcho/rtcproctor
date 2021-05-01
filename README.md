@@ -33,9 +33,8 @@ A live demo is available at https://rtcproctor.herokuapp.com  (However, this sit
 One of the most important tasks to do in arranging this online proctoring method is to create and exchange stream codes between students and their proctor(s). The stream codes are supposed to be a secret piece of information shared only by each student and his/her proctor. Two methods are suggested for the task.
 1. Use a companion Moodle plugin. If you have already used Moodle LMS at your shool, this is a more convenient choice.
 2. Use Google sheet and email to exchange stream codes. This is for those who don't have or use Moodle.
-For Choice #1, here is a link to early, experimental version of a companion Moodle plugin to be used with RTCProctor [link to be avaiable soon].
 
-For Choice #2, follow instruction below.
+For Choice #1, here is a link to early, experimental version of a companion Moodle plugin to be used with RTCProctor [link to be avaiable soon]. For Choice #2, follow instruction below.
 
 #### Exchange stream codes by Google sheet + Gmail
 1. Create a Google sheet to generate to codes and prepare a message to send to each student. An example of a spreadsheet, which auto generates a randome stream code, and prepare a link + code for each student, is given here [to be provided] (in excel format. You need to upload this to Google Drive, and convert to Google Sheet before proceeding to the next step).
