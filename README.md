@@ -4,7 +4,7 @@
 
 This is a program written for video proctoring of examinations conducted off-school/off-campus, or exam from home. The main idea is to use each student's mobile phone as a video camera, and a web-based peer-to-peer streaming code to send live picture to a proctor computer. A proctor can monitor multiple videos streamed from students in one page. More than one proctor can monitor any of the students' video streams at the same time. Video delivery is based on the WebRTC real-time communication standard. The code was written based on RTCMulticonnection library (see: https://github.com/muaz-khan/RTCMultiConnection and ref. at the end of this document).
 
-Although on the student side the software can be used with a notebook computer, a mobie phone is a prefered device because its front-facing camera has a wider and more flexible viewpoint.
+Although on the student side the software can be used with a notebook computer, a mobile phone is a prefered device because its front-facing camera has a wider and more flexible viewpoint.
 
 ### Features
 
