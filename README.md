@@ -45,18 +45,50 @@ For Choice #1, here is a link to early, experimental version of a companion Mood
 ###  Installation Guide
 Three pieces of software/sytem are required for the code to work:
 1.  RTCProctor software itself, as shared by this repo.
-2.  A signaling server, used to initialze a connection.
+2.  A socketio signaling server, used to initialze a connection.
 3.  An ICE server, used along with a signaling server to establish a peer-to-peer connection
 
-[In progress]
+Depending on a signaling server configuration, RTCProctor code may be installed and run on student/proctor machines, without the need for a web server. Otherwise, it can be hosted on any static web server.
 
-###  Install Your Own Signaling Server
+A signaling server is used to publish and initialize video stream connection. A nodejs version of the server software are available from https://github.com/muaz-khan/RTCMultiConnection-Server. List of some public signaling servers for testing include:
+* https://rtcmulticonnection.herokuapp.com:443/  (note: may no longer avaiable for public use)
+* https://webrtcweb.com:9002/ (note: may no longer avaiable for public use)
+* https://rtcsignalserver.herokuapp.com/ (note: this server runs under the Heroku free plan. Therefore, performance and availability is limited. When usage exceeds the quota, the server will not be available.)
 
-[In progress]
+It is however recommended that you should run your own signaling server, to get reliable service as well as good security.
+
+For the third part, there are two types of ICE servers, STUN and TURN ICE servers.  ICE server is needed in real-world application of WebRTC peer-to-peer video streaming. Free STUN servers are available, and you can use the default set by RTCProctor. However, sometimes only STUN server is not enough to establish a connection. This happens when student devices are connected through some service providers with strict Firewall and NAT rules. When this is the case, a TURN server is needed. Unfortunately, there is no public TURN server because the server consumes a lot of more computing and networking resource, compared to what required to run STUN servers. To ensure reliable use of RTCProctor, users need to find or run their own TURN server.
+
+###  Install Your Own Signaling Server on Heroku Server
+
+Here is a guide on how to install and run the signaling server on Heroku cloud service. A basic knowledge of Linux command lines is needed. Similar procedure should be applicable for hosting on your own server, or on other cloud service providers.
+
+1. Create an account on Heroku site (www.heroku.com). You may start by choosing a free plan. 
+2. Follow instructions from Heroku website to create a NodeJS server, and prepareing your local Heroku development environment.
+3. Go to https://github.com/muaz-khan/RTCMultiConnection-Server and download the RTCMulticonneciton socketio signaling server software. 
+4. Install the signaling software onto your local Heroku machine. At this point, you may need to make some change to the original code in server.js:
+
+   Uncomment the following line and add the next one as shown below.
+    
+    `var PORT = 9001; //comment this line`  
+    
+    `var PORT = process.env.PORT; //add this line instead`
+    
+
+   In addition, you might need to set CORS configuration to allow RTCProctor code to access the server from different domain.
+       
+5. Add a text file named `Procfile` to your server root directory containing this single line
+
+    `node server.js`  
+
+7. Use git to push the whole directory to your Heroku server, and the signaling server should start and run automatically.
+8. Set the SocketIO URL in `rtcproctor-*.html` files  to your signaling server (something like https://yoursappname.herokuapp.com/)
 
 ###  Install Your Own ICE Server
 
-[In progress]
+coTURN is a popular free STUN and TURN server. Links to installation guide are listed below.
 
+*  https://gabrieltanner.org/blog/turn-server
+*  http://truelogic.org/wordpress/2020/06/17/setup-your-own-stun-turn-server-using-coturn/
 
 
