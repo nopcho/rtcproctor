@@ -23,7 +23,7 @@ This is a program written for video proctoring of examinations conducted off-sch
 4. Any time during the live connection, a student or proctor can request attention by clcking on the 'hand-shake' icon on the top-right corner of the chat message box. Both side and exchange text message with each other.
 5. For a proctor to view individual video, as well as start a chat with each student, click on a student name/id below the video box.
 
-Note that, because a student acts like a broadcaster and a proctor acts like a receiver, there can be more than one proctors viewing student streams at the same time. Also, whatever happens to a proctor machine does not interrupt video streaming.
+Note that, because a student acts like a broadcaster and a proctor acts like a receiver, there can be more than one proctors viewing student streams at the same time. Also, whatever happens to a proctor machine does not interrupt video streaming. Also, importantly, due to a variety of mobile phone devices in use these days, some of students' device may not yet support WebRTC. If so, RTCProctor may not function properly on these devices.
 
 A live demo is available at https://rtcproctor.herokuapp.com  (However, this site runs on a Heroku free plan, with limited quota on usage transaction. Therefore, availablity can be limited and not guaranteed). 
 *  A student page: https://rtcproctor.herokuapp.com/rtcproctor-s.html
@@ -55,16 +55,16 @@ A signaling server is used to publish and initialize video stream connection. A 
 * https://webrtcweb.com:9002/ (note: may no longer available for public use)
 * https://rtcsignalserver.herokuapp.com/ (note: this server runs under the Heroku free plan. Therefore, performance and availability is limited. When usage exceeds the quota, the server will not be available.)
 
-It is however recommended that you should run your own signaling server, to get reliable service as well as good security.
+For production use, it is recommended that you should run your own signaling server, to get reliable service as well as good security.
 
-For the third part, there are two types of ICE servers, STUN and TURN ICE servers.  ICE server is needed in real-world application of WebRTC peer-to-peer video streaming. Free STUN servers are available, and you can use the default set by RTCProctor. However, sometimes only STUN server is not enough to establish a connection. This happens when student devices are connected through some service providers with strict Firewall and NAT rules. When this is the case, a TURN server is needed. Unfortunately, there is no public TURN server because the server consumes a lot of more computing and networking resource, compared to what required to run STUN servers. To ensure reliable use of RTCProctor, users need to find or run their own TURN server.
+For the third part, ICE server is needed in real-world application of WebRTC peer-to-peer video streaming. There are two types of ICE servers, STUN and TURN ICE servers. Free STUN servers are available, and you can use the default set by RTCProctor. However, sometimes only STUN server is not enough to establish a connection. This happens when student devices are connected through some service providers with strict Firewall and NAT rules. When this is the case, a TURN server is needed. Unfortunately, there is no known public TURN server because the server consumes a lot more computing and networking resource, compared to what required to run STUN servers. To ensure reliable use of RTCProctor, users need to find or run their own TURN server.
 
 ###  Install Your Own Signaling Server on Heroku Server
 
-Here is a guide on how to install and run the signaling server on Heroku cloud service. A basic knowledge of Linux command lines is needed. Similar procedure should be applicable for hosting on your own server, or on other cloud service providers.
+Here is a guide on how to install and run the signaling server on Heroku cloud service. A basic knowledge of Linux commands is needed.
 
 1. Create an account on Heroku site (www.heroku.com). You may start by choosing a free plan. 
-2. Follow instructions from Heroku website to create a NodeJS server, and prepareing your local Heroku development environment.
+2. Follow instruction from Heroku website to create a NodeJS server, and prepare your local Heroku development environment.
 3. Go to https://github.com/muaz-khan/RTCMultiConnection-Server and download the RTCMulticonneciton socketio signaling server software. 
 4. Install the signaling software onto your local Heroku machine. At this point, you may need to make some change to the original code in server.js:
 
@@ -86,7 +86,7 @@ Here is a guide on how to install and run the signaling server on Heroku cloud s
 
 ###  Install Your Own ICE Server
 
-coTURN is a popular free STUN and TURN server. Links to installation guide are listed below.
+coTURN (https://github.com/coturn/coturn) is a popular free STUN and TURN server. Links to installation guide are listed below.
 
 *  https://gabrieltanner.org/blog/turn-server
 *  http://truelogic.org/wordpress/2020/06/17/setup-your-own-stun-turn-server-using-coturn/
