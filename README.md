@@ -36,7 +36,7 @@ One of the most important tasks to do in arranging this online proctoring method
 1. Use a companion Moodle plugin. If you have already used Moodle LMS at your shool, this is a more convenient choice.
 2. Use Google sheet and email to exchange stream codes. This is for those who don't have or use Moodle.
 
-For Choice #1, here is a link to early, experimental version of a companion Moodle plugin to be used with RTCProctor [link to be avaiable soon]. For Choice #2, follow instruction below.
+For Choice #1, here is a link to early, experimental version of a companion Moodle plugin to be used with RTCProctor (https://github.com/nopparuts/rtcproctor-plugin.git). For Choice #2, follow instruction below.
 
 #### Exchange stream codes by Google sheet + Gmail
 1. Create a Google sheet to generate to codes and prepare a message to send to each student. An example of a spreadsheet, which auto generates a randome stream code, and prepare a link + code for each student, is given here https://github.com/nopcho/rtcproctor/blob/main/rtcproctor-codeexchange.xlsx (in excel format. You need to upload this to Google Drive, and convert to Google Sheet before proceeding to the next step).
@@ -77,8 +77,34 @@ Here is a guide on how to install and run the signaling server on Heroku cloud s
     `var PORT = process.env.PORT; //add this line instead`
     
 
-   In addition, you might need to set CORS configuration to allow RTCProctor code to access the server from different domain.
-       
+   In addition, you might need to set CORS configuration to allow RTCProctor code to access the server from different domain. For example, to allow your signaling server to be accessible from RTCProctor pages located on any server (or on a local machine), make change to `server.js` as suggested below.
+   
+   ####   From (only accessible from pages hosted on the same domain)
+   
+   ```// --------------------------
+   // socket.io codes goes below
+   
+   ioServer(httpApp).on('connection', function(socket) {
+      RTCMultiConnectionServer.addSocket(socket, config);  
+   ```
+   
+   ####   To (required to access from anywhere)
+   
+   ```// --------------------------
+   // socket.io codes goes below
+   
+   var iooptions = {
+      cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+        credentials: true
+      }
+   };
+   
+   ioServer(httpApp, iooptions).on('connection', function(socket) {
+      RTCMultiConnectionServer.addSocket(socket, config);
+   ```
+
 5. Add a text file named `Procfile` to your server root directory containing this single line
 
     `node server.js`  
