@@ -70,7 +70,7 @@ Here is a guide on how to install and run the signaling server on Heroku cloud s
 3. Go to https://github.com/muaz-khan/RTCMultiConnection-Server and download the RTCMulticonneciton socketio signaling server software. 
 4. Install the signaling software onto your local Heroku machine. At this point, you may need to make some change to the original code in server.js:
 
-   Uncomment the following line 
+   comment or delete the following line 
     
     `var PORT = 9001; //comment this line`  
 
